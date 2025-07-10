@@ -74,7 +74,7 @@ def dict_to_html_table(num_rows, num_cols, dictionary):
         for col in range(num_cols):
             html_table += '<td>'
             try:
-                html_table += dictionary[str(num_rows - row - 1)][str(col)]
+                html_table += dictionary[num_rows - row - 1][col]
             except:
                 html_table += '&nbsp;'
             html_table += '</td>'
@@ -90,7 +90,7 @@ def print_dict_to_console(num_rows, num_cols, dictionary):
         line_text = ''
         for col in range(num_cols):
             try:
-                line_text += dictionary[str(num_rows - row - 1)][str(col)]
+                line_text += dictionary[num_rows - row - 1][col]
             except:
                 line_text += ' '
         print(line_text)
@@ -127,13 +127,13 @@ def decode_table_secret(table):
         else:
             cells = row.get('tableCells')
             """Grab the 0-2 cells from the row"""
-            x_coordinate = read_structural_elements(cells[0].get('content'))
+            x_coordinate = int(read_structural_elements(cells[0].get('content')))
             cell_unicode = read_structural_elements(cells[1].get('content'))
-            y_coordinate = read_structural_elements(cells[2].get('content'))
-            if (int(x_coordinate) > x_max):
-                x_max = int(x_coordinate)
-            if (int(y_coordinate) > y_max):
-                y_max = int(y_coordinate)
+            y_coordinate = int(read_structural_elements(cells[2].get('content')))
+            if (x_coordinate > x_max):
+                x_max = x_coordinate
+            if (y_coordinate > y_max):
+                y_max = y_coordinate
             #print(f"{x_coordinate} {cell_unicode} {y_coordinate} ")
             coldict = {x_coordinate:cell_unicode}
             if (y_coordinate in tabledict):
